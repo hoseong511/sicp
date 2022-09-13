@@ -2,6 +2,8 @@
 	(cc amount 5))
 
 (define (cc amount kind-coins)
+	(display amount)
+	(newline)
 	(cond	((= amount 0) 1)
 			((or (< amount 0) (= kind-coins 0)) 0)
 			(else (+ (cc amount 

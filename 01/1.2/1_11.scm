@@ -11,6 +11,8 @@
 		(f-iter (- n 1) (+ a (* 2 b) (* 3 c)) a b)))
 
 (define (f-recur n)
+	(display n)
+	(newline)
 	(cond	((< n 3) n)
 			(else (+ (f-recur (- n 1))
 					 (* 2 (f-recur (- n 2)))
