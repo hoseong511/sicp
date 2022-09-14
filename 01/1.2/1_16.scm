@@ -8,13 +8,7 @@
 		(newline)
 		(cond	((= count 0)result)
 				((even? count)
-					(fast-expt-iter
-						(square b)
-						(/ count 2)
-						result))
+					(fast-expt-iter (square b) (/ count 2) result))
 				(else
-					(fast-expt-iter 
-						b
-						(- count 1)
-						(* result b)))))
+					(fast-expt-iter b (- count 1) (* result b)))))
 	(fast-expt-iter b n 1))

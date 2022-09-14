@@ -11,5 +11,5 @@
 		(newline)
 		(if (= count 0)
 			result
-			(expt-iter b (- count 1) (* result b))))
+			(expt-iter base (- count 1) (* result base))))
 	(expt-iter b n 1))
