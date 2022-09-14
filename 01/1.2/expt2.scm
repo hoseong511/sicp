@@ -1,0 +1,8 @@
+(define (fast-expt-recur b n)
+	(display n)
+	(newline)
+	(define (even? n)
+		(= (remainder n 2) 0))
+	(cond	((= n 0) 1)
+			((even? n) (square (fast-expt-recur b (/ n 2))))
+			(else (* b (fast-expt-recur b (- n 1))))))
