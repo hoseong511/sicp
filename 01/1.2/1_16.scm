@@ -1,21 +1,20 @@
 (define (fast-expt b n)
 	(define (square x)
 		(* x x))
-	(define (even? n)
-		(= (remainder n 2) 0))
+	(define (even? x)
+		(= (remainder x 2) 0))
 	(define (fast-expt-iter b count result)
-		(display result)
+		(display count)
 		(newline)
-		(if (= count 0)
-			result
-			(cond	((even? n) 
-						(fast-expt-iter
-							b
-							(- count 2)
-							(* result (square b))))
-					(else
-						(fast-expt-iter 
-							b
-							(- count 1)
-							(* result b))))))
+		(cond	((= count 0)result)
+				((even? count)
+					(fast-expt-iter
+						(square b)
+						(/ count 2)
+						result))
+				(else
+					(fast-expt-iter 
+						b
+						(- count 1)
+						(* result b)))))
 	(fast-expt-iter b n 1))
