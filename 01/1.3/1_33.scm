@@ -1,0 +1,38 @@
+(define (filtered-accumulate combiner null-value predicate term a next b)
+	(define (iter a result)
+		(if (> a b)
+			result
+			(if (predicate a)
+				(iter (next a) (combiner result (term a)))
+				(iter (next a) result))))
+	(iter a null-value))
+
+(define (prime-sum a b)
+	(define (next x)
+		(+ 1 x))
+	(define (divides? x y)
+		(= (remainder x y) 0))
+	(define (find-divisor x test-divisor)
+		(cond ((> (square test-divisor) x) x)
+			  ((divides? x test-divisor) test-divisor)
+			  (else (find-divisor x (+ test-divisor 1)))))
+	(define (smallest-divisor x)
+		(find-divisor x 2))
+	(define (prime? x)
+		(= (smallest-divisor x) x))
+	(filtered-accumulate + 0 prime? square a next b))
+
+(define (gcd a b)
+	(if (= b 0)
+		a
+		(gcd b (remainder a b))))
+
+(define (gcd-product n)
+	(define (next x)
+		(+ 1 x))
+	(define (gcd-1? x)
+		(= (gcd x n) 1))
+	(define (identify x) x)
+	(filtered-accumulate * 1 gcd-1? identify 1 next n))
+
+(prime-sum 1 100)
