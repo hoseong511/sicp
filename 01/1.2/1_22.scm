@@ -26,7 +26,7 @@
 	(start-prime-test n (runtime)))
 
 (define (iter from to)
-	(cond	((> from to) (display "\nend"))
+	(cond	((> from to) (display "\nend\n"))
 			(else (timed-prime-test from) (iter (+ from 2) to))))
 
 (define (search-for-primes from to)
