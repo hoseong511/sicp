@@ -1,6 +1,8 @@
 ## **Structure and Interpretation of Computer Programs(SICP)**
 
-- ### MIT/GNU scheme : Download & Documetation [link](https://www.gnu.org/software/mit-scheme/)
+- ### Racket : Download & Documentation [link](https://racket-lang.org/)
+
+- ### MIT/GNU scheme : Download & Documentation [link](https://www.gnu.org/software/mit-scheme/)
 	- if m1 mac, use rosetta [link](https://kennethfriedman.org/thoughts/2021/mit-scheme-on-apple-silicon/)
 
 - ### How to load
