@@ -1,5 +1,9 @@
 (define tolerance 0.00001)
 
+(define (error x)
+	(display x)
+	(newline))
+
 (define (average x y)
   (/ (+ x y) 2))
 
@@ -27,7 +31,7 @@
 (define (n-th f n)
 	(if (= n 1)
 		(lambda (x) (f x))
-		(n-th (lambda (x) (* x (f x)) (- n 1)))))
+		(n-th (lambda (x) (* x (f x))) (- n 1))))
 
 (define (avg-damp f)
 	(lambda (x) (average x (f x))))
@@ -35,14 +39,17 @@
 (define (n-th-sqrt x n)
 	(define (n-avg-damp n)
 		(repeated avg-damp n))
-	(define (n-th-x n)
-		(n-th (lambda (x) x) ))
+	(define (n-square n)
+		(n-th (lambda (x) x) n))
 	(if (< n 2)
 		(error "n > 1!")
 		(let ((n-temp 
-							((n-avg-damp (- n 1)) (lambda (y) (/ x ((n-square (- n 2)) y))))))
-		(fixed-point n-temp 1.0)))
-		)
+							((n-avg-damp (- n 1)) (lambda (y) (/ x ((n-square (- n 1)) y))))))
+		(fixed-point n-temp 1.0))))
 	
 (n-th-sqrt 4 2)
-((n-th (lambda (x) x) 2) 2)
+(n-th-sqrt 1000 3)
+(n-th-sqrt 10000 4)
+(n-th-sqrt 100000 5)
+(n-th-sqrt 1000000 6)
+(n-th-sqrt 1000000 1)
