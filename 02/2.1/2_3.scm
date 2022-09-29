@@ -33,7 +33,39 @@
 (define mid (midpoint-segment s))
 (print-point mid)
 
-(define (make-rectangle w h) (cons w h))
+
+(define (cmp p1 p2)
+	(if (and (= (x-point p1) (x-point p2))
+			 		 (= (y-point p1) (y-point p2)))
+			1
+			0))
+
+(define (check-cmp w h)
+	(let ((a1 (start-segment w))
+				(a2 (end-segment w))
+				(a3 (start-segment h))
+				(a4 (end-segment h)))
+		(+ (cmp a1 a3)
+			 (cmp a1 a4)
+			 (cmp a2 a3)
+			 (cmp a2 a4))))
+
+(define (check-midpoint w h)
+	(let ((a1 (start-segment w))
+				(a2 (end-segment w))
+				(a3 (start-segment h))
+				(a4 (end-segment h)))
+		(cond ((= (cmp a1 a3) 1) (eval a1 a2 a4))
+					((= (cmp a1 a4) 1) (eval a1 a2 a3))
+					((= (cmp a2 a3) 1) (eval a2 a1 a4))
+					((= (cmp a2 a4) 1) (eval a2 a1 a3)))))
+
+(define (make-rectangle w h)
+	(if (and (= (check-cmp w h) 1)
+					 (check-midpoint w h))
+		(cons w h)
+		(error "can't make-rectangle\n")))
+
 (define (width-rectangle r) (car r))
 (define (height-rectangle r) (cdr r))
 (define (area-rectangle r)
