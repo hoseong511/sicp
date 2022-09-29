@@ -5,7 +5,7 @@
 
 ; (define (make-rat n d) (cons n d))
 (define (make-rat n d)
-	(let ((g (gcd n d))
+	(let ((g (abs (gcd n d)))
 				(n (if (negative? d) (* -1 n)	n))
 				(d (if (negative? d) (* -1 d) d)))
 		(cons (/ n g) (/ d g))))
