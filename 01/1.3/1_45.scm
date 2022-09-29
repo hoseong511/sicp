@@ -37,10 +37,10 @@
 	(lambda (x) (average x (f x))))
 
 (define (n-th-sqrt x n)
-	(define (n-avg-damp n)
-		(repeated avg-damp n))
-	(define (n-square n)
-		(n-th (lambda (x) x) n))
+	(define (n-avg-damp i)
+		(repeated avg-damp i))
+	(define (n-square i)
+		(n-th (lambda (x) x) i))
 	(if (< n 2)
 		(error "n > 1!")
 		(let ((n-temp 
