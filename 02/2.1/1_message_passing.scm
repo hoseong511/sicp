@@ -1,0 +1,22 @@
+(define (cons_ x y)
+	(define (dispatch m)
+		(cond ((= m 0) x)
+					((= m 1) y)
+					(else (error "Argument not 0 or 1 -- CONS" m))))
+	dispatch)
+
+(define (car_ z) (z 0))
+(define (cdr_ z) (z 1))
+
+(define (my_cons x y z)
+	(define (dispatch m)
+		(cond ((= m 0) x)
+					((= m 1) y)
+					((= m 2) z)
+					(else (error "Argument not 0, 1, 2 -- CONS" m))))
+	dispatch)
+
+(define z2 (my_cons 123123 1 2))
+(define (c0r z2) (z2 0))
+(define (c1r z2) (z2 1))
+(define (c2r z2) (z2 2))
