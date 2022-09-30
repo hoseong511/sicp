@@ -27,6 +27,10 @@
   (display (y-point p))
   (display ")" ))
 
+(define (error str)
+	(display str)
+	(newline))
+	
 (define n1 (make-point -1 1))
 (define n2 (make-point 1 -1))
 (define s (make-segment n1 n2))
