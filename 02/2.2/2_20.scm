@@ -1,10 +1,9 @@
 #lang sicp
 
 (define (same-pairity x . z)
-  (let ((tmp (list))
-        (check (if (even? x)
-                   even?
-                   odd?)))
+  (let ((check (if (even? x)
+									even?
+									odd?)))
     (define (iter lst)
       (if (null? lst)
           nil
