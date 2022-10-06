@@ -6,13 +6,11 @@
 (define (left-branch mobile)
   (car mobile))
 (define (right-branch mobile)
-  (car (cdr mobile)))
+  (cdr mobile))
 (define (branch-len branch)
   (car branch))
 (define (branch-strc branch)
-  (if (= (branch-len branch) 0)
-      (car (cdr branch))
-      (cdr branch)))
+  (cdr branch))
 
 ;b
 (define (total-weight mobile)
@@ -48,3 +46,4 @@
 (right-branch mobile)
 (define mobile2 (make-mobile left2 right2))
 (total-weight mobile2)
+(balanced? mobile2)
