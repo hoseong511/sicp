@@ -69,5 +69,11 @@
                       (enumerate-interval 1 (- i 1))))
            (enumerate-interval 1 n)))
 
+
 (define (pick-permutations n)
 	(map permutations (triple-pair n)))
+
+(define (triples-of-sum s n)
+  (filter (lambda (seq) (= (accumulate + 0 seq) s)) 
+          (triple-pair n)))
+(triples-of-sum 20 30)
