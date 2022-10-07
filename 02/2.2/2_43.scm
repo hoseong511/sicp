@@ -30,10 +30,10 @@
   (define (check? last seq)
     (let ((x (car (car seq)))
           (y (cdr (car seq))))
-    (cond ((equal? (car seq) last) #t)
-          ((= (car (car seq)) (car last)) #f)
-          ((= (abs (/ (- x (car last)) (- y (cdr last)))) 1) #f)
-          (else (check? last (cdr seq))))))
+      (cond ((equal? (car seq) last) #t)
+            ((= (car (car seq)) (car last)) #f)
+            ((= (abs (/ (- x (car last)) (- y (cdr last)))) 1) #f)
+            (else (check? last (cdr seq))))))
   (if (= k 1)
       #t
       (check? (last pos) pos)))
@@ -46,16 +46,17 @@
     (if (= k 0)
         (list empty-board) 
         (filter (lambda (positions) (safe? k positions))
-                (flatmap (lambda (rest-of-queens)
-                           (map (lambda (new-row)
+                (flatmap (lambda (new-row)
+                           (map (lambda (rest-of-queens)
                                   (adjoin-position new-row k rest-of-queens))
-                                (enumerate-interval 1 board-size)))
-                         (queen-cols (- k 1))))))
+                                (queen-cols (- k 1))))
+                         (enumerate-interval 1 board-size)))))
   (queen-cols board-size))
 
 (queens 8)
-; 1. 자료구조 (여기에서 오래걸림)
-; 2. 작성된 코드에서 작동되는 방식에 대한 이해
-; 3. 알고리즘 -> dfs
-; ( () () () ) -> 이러한 형식의 자료를 safe? 검사함, 처음부터 마지막 까지 추가된 좌표를 검사한다.
-; 무엇보다도 중요했던것은 타입을 맞추는 것
+
+; 점 하나를 만들 때 마다 재귀호출된 함수를 기다려야 하므로 오래걸린다.
+; ex 1 -> queen-cols * (board-size - 1), 2 -> queen-cols * (board-size - 1), ...
+; board-size^2 만큼이 소요된다.
+
+; 1 -> queen-cols 
