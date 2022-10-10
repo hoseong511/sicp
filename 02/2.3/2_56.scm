@@ -26,7 +26,7 @@
 (define (sum? x)
   (and (pair? x) (eq? (car x) '+)))
 
-(define (augend s) (cadr s))
+(define (augend s)(cadr s))
 
 (define (addend s) (caddr s))
 
@@ -45,9 +45,10 @@
 (define (exponent e) (caddr e))
 
 (define (make-exponent base exp)
-  (cond ((=number? exp 0) 1)
-        ((=number? exp 1) base)
-        (else (list '** (list '* exp base) (- exp 1)))))
+  (cond ((=number? exp 1) base)
+        ((number? base) 0)
+        ((number? exp) (list '** base (- exp 1)))
+        (else (list '** base (list '- exp 1)))))
   
 ;deriv 
 (define (deriv exp var)
@@ -59,13 +60,16 @@
                    (deriv (addend exp) var)))
         ((product? exp)
          (make-sum
-          (make-product (multiplier exp)
-                        (deriv (multiplicand exp) var))
-          (make-product (deriv (multiplier exp) var)
-                        (multiplicand exp))))
+          (make-product (deriv (multiplicand exp) var)
+                        (multiplier exp))
+          (make-product (multiplicand exp)
+                        (deriv (multiplier exp) var))))
         ((exponentiation? exp)
-         (make-exponent (base exp)
-                        (exponent exp)))
+         (if (=number? (exponent exp) 0)
+             1
+             (make-product (exponent exp)
+                           (make-exponent (base exp)
+                                          (exponent exp)))))
         (else
          (error "unkown expression type -- DERIV" exp))))
 
@@ -75,3 +79,8 @@
 (deriv '(* (* x y) (+ x 3)) 'x)
 (deriv '(** x 4) 'x)
 (deriv '(+ (** x 2) (* 2 x) 1) 'x)
+(deriv '(* 4 (** x y)) 'x)
+(deriv '(** 3 4) 'x)
+(deriv '(** x 0) 'x)
+(deriv '(+ x y (+ x 3)) 'x)
+(deriv '(* x y (+ x 3)) 'x)
